@@ -55,9 +55,6 @@ class App extends React.Component {
   }
 }
 
-// exampleVideoData[0]["title"]
-// exampleVideoData[0]["description"]
-
 
 // ReactDOM.render(<App />, document.getElementById("app"));
 
