@@ -9,7 +9,7 @@ var searchYouTube = (query, callback) => {
     key: YOUTUBE_API_KEY,
     q: query,
     part: 'snippet',
-    maxResults: 5
+    maxResults: 20
   }).done(function(data) {
     console.log(data);
     callback(data);
