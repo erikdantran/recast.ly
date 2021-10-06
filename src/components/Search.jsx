@@ -1,16 +1,24 @@
 import searchYouTube from '../lib/searchYoutube.js';
 
 var Search = (props) => {
-  var handler = (event) => {
-    console.log('Event value', event.target.value);
-    props.search(event.target.value);
-    searchYouTube(event.target.value, props.cb);
-  };
+  // var inputHandlers = (event) => {
+  //   console.log('Event value', event.target.value);
+  //   props.search(event.target.value);
+  //   // searchYouTube(event.target.value, props.cb);
+  // };
+
+  // var inputHandler = (event) => {
+  //   console.log('inputEvent value', event.target.value);
+  //   props.search(event.target.value);
+  // };
 
   return (
     <div className="search-bar form-inline">
-      <input className="form-control" type="text" onChange={handler}/>
-      <button className="btn hidden-sm-down">
+      <input className="form-control" type="text"
+        // onClick={inputHandler}
+        onChange={props.handleInputChange}
+      />
+      <button className="btn hidden-sm-down" onClick={props.searchYouTubeAPI}>
         <span className="glyphicon glyphicon-search"
         ></span>
       </button>

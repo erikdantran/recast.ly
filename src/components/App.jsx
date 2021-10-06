@@ -2,7 +2,7 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
-// import searchYouTube from '../lib/searchYoutube.js';
+import searchYouTube from '../lib/searchYoutube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,19 +18,46 @@ class App extends React.Component {
     this.handleSearchQuery = this.handleSearchQuery.bind(this);
     this.searchResults = this.searchResults.bind(this);
     this.handleVideoChange = this.handleVideoChange.bind(this);
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.searchYouTubeAPI = this.searchYouTubeAPI.bind(this);
   }
 
+  searchYouTubeAPI(event) {
+    console.log('clicked');
+    searchYouTube(this.state.searchQuery, this.searchResults);
+  }
+
+  handleInputChange(event) {
+    console.log(event.target.value);
+    this.setState({ searchQuery: event.target.value });
+  }
+
+  // ComponentDidMount() {
+  //   this.getYouTubeVideos('taco terriers');
+  // }
+
+  // getYouTubeVideos(query) {
+  //   this.props.searchYouTube(query, (videos) => {
+  //     this.setState({
+  //       allVideos: videos,
+  //       currentVideo: videos[0]
+  //     });
+  //   });
+  // }
+
+
   handleSearchQuery(query) {
-    this.setState({searchQuery: query});
+    this.setState({ searchQuery: query });
   }
 
   searchResults(results) {
-    this.setState({allVideos: results});
-    this.setState({currentVideo: results[0]});
+    this.setState({ allVideos: results });
+    this.setState({ currentVideo: results[0] });
   }
 
   handleVideoChange(video) {
-    this.setState({currentVideo: video});
+    this.setState({ currentVideo: video });
   }
 
   render() {
@@ -39,15 +66,19 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search search={this.handleSearchQuery} cb={this.searchResults}/>
+            <Search
+              search={this.handleSearchQuery}
+              cb={this.searchResults} handleInputChange={this.handleInputChange}
+              searchYouTubeAPI={this.searchYouTubeAPI}
+            />
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.currentVideo}/>
+            <VideoPlayer video={this.state.currentVideo} />
           </div>
           <div className="col-md-5">
-            <VideoList videos={this.state.allVideos} videoChange={this.handleVideoChange}/>
+            <VideoList videos={this.state.allVideos} videoChange={this.handleVideoChange} />
           </div>
         </div>
       </div>
